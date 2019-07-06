@@ -1,0 +1,26 @@
+server:
+  port: ${port:40100}
+spring:
+  application:
+    name: xc-search-service
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/xc_course1?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+xuecheng:
+  elasticsearch:
+    hostlist: ${eshostlist:127.0.0.1:9200,127.0.0.1:9201} #多个结点中间用逗号分隔9200
+  course:
+    index: xc_course1
+    media_index: xc_course_media
+    source_field: id,name,grade,mt,st,charge,valid,pic,qq,price,price_old,status,studymodel,teachmode,expires,pub_time,start_time,end_time
+eureka:
+  client:
+    register-with-eureka: true #服务注册,是否将自己注册到服务中
+    fetch-registry: true #服务发现,是否从eureka中获取注册信息
+    service-url:
+      defaultZone: ${EUREKA_SEVER:http://localhost:50101/eureka/}
+  instance:
+    prefer-ip-address: true #将自己的ip地址注册到Eureka服务中
+    ip-address: ${IP_ADDRESS:127.0.0.1}
+    instance-id: ${spring.application.name}-${server.port}

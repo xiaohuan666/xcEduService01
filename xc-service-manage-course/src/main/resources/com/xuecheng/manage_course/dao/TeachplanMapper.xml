@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuecheng.manage_course.dao.TeachplanMapper">
+    <resultMap id="teachplanNodeMap" type="com.xuecheng.framework.domain.course.ext.TeachplanNode">
+        <result property="id" column="id"/>
+        <result property="pname" column="pname"/>
+        <!--<result property="parentid" column="parentid"/>
+        <result property="grade" column="grade"/>
+        <result property="ptype" column="ptype"/>
+        <result property="description" column="description"/>
+        <result property="courseid" column="courseid"/>
+        <result property="status" column="status"/>
+        <result property="orderby" column="orderby"/>
+        <result property="timelength" column="timelength"/>
+        <result property="trylearn" column="trylearn"/>-->
+        <collection property="children" ofType="com.xuecheng.framework.domain.course.ext.TeachplanNode">
+            <result property="id" column="id1"/>
+            <result property="pname" column="pname1"/>
+            <!--<result property="parentid" column="parentid1"/>
+            <result property="grade" column="grade1"/>
+            <result property="ptype" column="ptype1"/>
+            <result property="description" column="description1"/>
+            <result property="courseid" column="courseid1"/>
+            <result property="status" column="status1"/>
+            <result property="orderby" column="orderby1"/>
+            <result property="timelength" column="timelength1"/>
+            <result property="trylearn" column="trylearn1"/>-->
+            <collection property="children" ofType="com.xuecheng.framework.domain.course.ext.TeachplanNode">
+                <result property="id" column="id2"/>
+                <result property="pname" column="pname2"/>
+                <!--<result property="parentid" column="parentid2"/>
+                <result property="grade" column="grade2"/>
+                <result property="ptype" column="ptype2"/>
+                <result property="description" column="description2"/>
+                <result property="courseid" column="courseid2"/>
+                <result property="status" column="status2"/>
+                <result property="orderby" column="orderby2"/>
+                <result property="timelength" column="timelength2"/>
+                <result property="trylearn" column="trylearn2"/>-->
+                <result property="mediaId" column="media_id"/>
+                <result property="mediaFileoriginalname" column="media_fileoriginalname"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="findTeachplanList" resultMap="teachplanNodeMap" parameterType="java.lang.String">
+        select *,t2.id id1,t2.pname pname1,t3.id id2,t3.pname pname2
+        FROM teachplan t1
+        left join teachplan t2
+        on t1.id = t2.parentid
+        left join teachplan t3
+        on t2.id = t3.parentid
+        left join teachplan_media tm
+        on t3.id = tm.teachplan_id
+        where t1.courseid=#{courseId}
+        and t1.parentid = '0';
+    </select>
+
+    <insert id="addTeachplan" parameterType="com.xuecheng.framework.domain.course.Teachplan">
+        insert into teachanplan
+        (id,pname,parentid,grade,ptype,description,timelength,courseid,orderby,status,trylearn)
+        values (#{id},#{pname},#{parentid},#{grade},#{ptype},#{description},#{timelength},#{courseid},#{orderby},#{status},#{trylearn})
+    </insert>
+
+</mapper>

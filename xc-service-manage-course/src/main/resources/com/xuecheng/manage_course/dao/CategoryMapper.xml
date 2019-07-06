@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xuecheng.manage_course.dao.CategoryMapper">
+    <resultMap id="CategoryMap" type="com.xuecheng.framework.domain.course.ext.CategoryNode">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="label" column="label"/>
+        <collection property="children" ofType="com.xuecheng.framework.domain.course.ext.CategoryNode">
+            <result property="id" column="id2"/>
+            <result property="name" column="name2"/>
+            <result property="label" column="label2"/>
+            <collection property="children" ofType="com.xuecheng.framework.domain.course.ext.CategoryNode">
+                <result property="id" column="id3"/>
+                <result property="name" column="name3"/>
+                <result property="label" column="label3"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+<!--    查询所有-->
+    <select id="findAll" resultMap="CategoryMap">
+        SELECT *,c2.id id2,c2.name name2,c3.id id3,c3.name name3
+        FROM category c1
+        LEFT JOIN category c2
+        ON c1.id = c2.parentid
+        LEFT JOIN category c3
+        ON c2.id  = c3.parentid
+        WHERE c1.parentid = 0
+    </select>
+</mapper>
