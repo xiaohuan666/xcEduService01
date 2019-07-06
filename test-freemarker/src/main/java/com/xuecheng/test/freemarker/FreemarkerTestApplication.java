@@ -10,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
  * @author Administrator
  * @version 1.0
  * @create 2018-06-12 18:42
+ *
+ *
  **/
 @SpringBootApplication
 public class FreemarkerTestApplication {
