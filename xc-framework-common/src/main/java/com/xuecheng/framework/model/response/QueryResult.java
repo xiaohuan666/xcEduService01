@@ -22,4 +22,5 @@ public class QueryResult<T> {
     private List<T> list;
     //数据总数
     private long total;
+//    呵呵
 }
