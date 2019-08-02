@@ -10,7 +10,6 @@ import com.xuecheng.framework.model.response.ResultCode;
 public class ExceptionCast {
 
     public static void cast(ResultCode resultCode){
-        System.out.println("hehe");
         throw new CustomException(resultCode);
     }
 }
