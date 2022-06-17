@@ -15,7 +15,7 @@
     <!--    版本信息配置文件-->
     <properties>
         <commonsio_version>2.6</commonsio_version>
-        <fastjson_version>1.2.58</fastjson_version>
+        <fastjson_version>1.2.83</fastjson_version>
         <jackson_version>2.9.9</jackson_version>
         <slf4japi_version>1.7.26</slf4japi_version>
         <guava_version>28.0-jre</guava_version>
